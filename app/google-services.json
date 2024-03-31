@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "1062690159521",
+    "firebase_url": "https://mesafe-98aa4-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "mesafe-98aa4",
+    "storage_bucket": "mesafe-98aa4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1062690159521:android:c0293a0228412cbeebe9e0",
+        "android_client_info": {
+          "package_name": "com.ibrahimaydin.firebaseeklesil"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBVjicxyyAGAE7DfgexXxPF_0-fBFwn58Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -6,35 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <com.ibrahimaydin.firebaseeklesil.TemperatureCircleView
+    <com.ibrahimaydin.firebaseeklesil.SıcaklıkCircleView
         android:id="@+id/temperatureCircleView"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <com.ibrahimaydin.firebaseeklesil.NemCircleView
-        android:id="@+id/nemCircleView"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <com.ibrahimaydin.firebaseeklesil.OksijenCircleView
-        android:id="@+id/oksijenCircleView"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="15dp"
         android:layout_marginTop="15dp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewSicaklik" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textViewSicaklik"
@@ -49,6 +29,16 @@
         app:layout_constraintStart_toStartOf="@+id/temperatureCircleView"
         app:layout_constraintTop_toBottomOf="@+id/temperatureCircleView" />
 
+    <com.ibrahimaydin.firebaseeklesil.NemCircleView
+        android:id="@+id/nemCircleView"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/textViewNem"
         android:layout_width="wrap_content"
@@ -62,18 +52,52 @@
         app:layout_constraintStart_toStartOf="@+id/nemCircleView"
         app:layout_constraintTop_toBottomOf="@+id/nemCircleView" />
 
+    <com.ibrahimaydin.firebaseeklesil.DioksitCircleView
+        android:id="@+id/dioksitCircleView"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewSicaklik" />
+
     <TextView
-        android:id="@+id/textViewOksijen"
+        android:id="@+id/textViewDioksit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textViewNem"
         android:layout_centerHorizontal="true"
-        android:text="Oksijen"
+        android:text="Dioksit"
         android:textSize="30dp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/oksijenCircleView"
-        app:layout_constraintStart_toStartOf="@+id/oksijenCircleView"
-        app:layout_constraintTop_toBottomOf="@+id/oksijenCircleView" />
+        app:layout_constraintEnd_toEndOf="@+id/dioksitCircleView"
+        app:layout_constraintStart_toStartOf="@+id/dioksitCircleView"
+        app:layout_constraintTop_toBottomOf="@+id/dioksitCircleView" />
+
+    <com.ibrahimaydin.firebaseeklesil.MonoksitCircleView
+        android:id="@+id/monoksitCircleView"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewNem" />
+
+    <TextView
+        android:id="@+id/textViewmonoksit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewNem"
+        android:layout_centerHorizontal="true"
+        android:text="Monoksit"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/monoksitCircleView"
+        app:layout_constraintStart_toStartOf="@+id/monoksitCircleView"
+        app:layout_constraintTop_toBottomOf="@+id/monoksitCircleView" />
+
 
     <TableLayout
         android:id="@+id/tableLayout"
@@ -82,7 +106,7 @@
         android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textViewOksijen">
+        app:layout_constraintTop_toBottomOf="@id/textViewDioksit">
 
         <TableRow
             android:id="@+id/tableRow1"
@@ -90,16 +114,17 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/textViewHayvan1"
+                android:id="@+id/koyun"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text=" Kedi:"
+                android:text=" Koyun:"
+                android:textColor="@color/black"
                 android:textSize="18dp"
                 android:textStyle="bold" />
 
             <ImageView
-                android:id="@+id/imageViewKedi"
+                android:id="@+id/imageViewKoyun"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
@@ -111,16 +136,17 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/textViewHayvan2"
+                android:id="@+id/leylek"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text=" Köpek: "
+                android:text=" Leylek: "
+                android:textColor="@color/black"
                 android:textSize="18dp"
                 android:textStyle="bold" />
 
             <ImageView
-                android:id="@+id/imageViewKopek"
+                android:id="@+id/imageViewLeylek"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
@@ -132,21 +158,43 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/textViewHayvan3"
+                android:id="@+id/bıldırcın"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text=" Kuş: "
+                android:text="Bıldırcın: "
+                android:textColor="@color/black"
                 android:textSize="18dp"
                 android:textStyle="bold" />
 
             <ImageView
-                android:id="@+id/imageViewKus"
+                android:id="@+id/imageViewBıldırcın"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
         </TableRow>
 
+        <TableRow
+            android:id="@+id/tableRow4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/kopek"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Köpek: "
+                android:textColor="@color/black"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/imageViewKopek"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </TableRow>
     </TableLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

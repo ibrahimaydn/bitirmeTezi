@@ -9,19 +9,19 @@ import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.View;
 
-public class TemperatureCircleView extends View {
+public class SıcaklıkCircleView extends View {
 
     private int sıcaklık = 0;
 
-    public TemperatureCircleView(Context context) {
+    public SıcaklıkCircleView(Context context) {
         super(context);
     }
 
-    public TemperatureCircleView(Context context, AttributeSet attrs) {
+    public SıcaklıkCircleView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public TemperatureCircleView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public SıcaklıkCircleView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
@@ -52,6 +52,7 @@ public class TemperatureCircleView extends View {
 
         float startAngle = 270;
         float sweepAngle = (float) (3.6 * (sıcaklık ));
+
         canvas.drawArc(rectF, 0, 360, false, paint2);
 
         canvas.drawArc(rectF, startAngle, sweepAngle, false, paint);

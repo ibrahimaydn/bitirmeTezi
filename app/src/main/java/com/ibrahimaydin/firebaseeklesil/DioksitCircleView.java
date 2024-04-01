@@ -9,24 +9,24 @@ import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.View;
 
-public class OksijenCircleView extends View {
+public class DioksitCircleView extends View {
 
-    private int oksijen = 0;
+    private int dioksit = 0;
 
-    public OksijenCircleView(Context context) {
+    public DioksitCircleView(Context context) {
         super(context);
     }
 
-    public OksijenCircleView(Context context, AttributeSet attrs) {
+    public DioksitCircleView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public OksijenCircleView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public DioksitCircleView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
-    public void setOksijen(int oksijen) {
-        this.oksijen = Math.min(Math.max(oksijen, 300), 1100);
+    public void setDioksit(int dioksit) {
+        this.dioksit = Math.min(Math.max(dioksit, 0), 10000);
         invalidate();
     }
 
@@ -53,12 +53,11 @@ public class OksijenCircleView extends View {
         canvas.drawArc(rectF, 0, 360, false, paint2);
 
         float startAngle = 270;
-        float sweepAngle = (float) (3.6 * ((float) (oksijen - 300) / 8)); // 800 birimlik aralığı 360 dereceye sığdırma
-
+        float sweepAngle = (float) ((dioksit ) * 0.036); // 200 - 10000 birimlik aralığı 360 dereceye sığdırma
 
         canvas.drawArc(rectF, startAngle, sweepAngle, false, paint);
 
-        String text = String.valueOf(oksijen);
+        String text = String.valueOf(dioksit + " ppm");
         paint.setTextSize(50);
         paint.setColor(Color.BLACK);
         paint.setStyle(Paint.Style.FILL);
@@ -67,6 +66,5 @@ public class OksijenCircleView extends View {
         float textWidth = paint.measureText(text);
         float textHeight = textBounds.height();
         canvas.drawText(text, centerX - textWidth / 2, centerY + textHeight / 2, paint);
-
     }
 }

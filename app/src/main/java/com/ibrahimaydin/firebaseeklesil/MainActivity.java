@@ -14,25 +14,26 @@ import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TextView textViewSicaklik, textViewNem, textViewOksijen, textViewHayvan1, textViewHayvan2, textViewHayvan3;
+    private TextView  textViewHayvan1, textViewHayvan2, textViewHayvan3, textViewHayvan4;
     private DatabaseReference databaseReference;
-    private TemperatureCircleView temperatureCircleView;
+    private SıcaklıkCircleView sıcaklıkCircleView;
     private NemCircleView nemCircleView;
-    private OksijenCircleView oksijenCircleView;
+    private DioksitCircleView dioksitCircleView;
+    private MonoksitCircleView monoksitCircleView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        textViewSicaklik = findViewById(R.id.textViewSicaklik);
-        textViewNem = findViewById(R.id.textViewNem);
-        textViewOksijen = findViewById(R.id.textViewOksijen);
-        temperatureCircleView = findViewById(R.id.temperatureCircleView);
+        sıcaklıkCircleView = findViewById(R.id.temperatureCircleView);
         nemCircleView = findViewById(R.id.nemCircleView);
-        oksijenCircleView = findViewById(R.id.oksijenCircleView);
-        textViewHayvan1 = findViewById(R.id.textViewHayvan1);
-        textViewHayvan2 = findViewById(R.id.textViewHayvan2);
-        textViewHayvan3 = findViewById(R.id.textViewHayvan3);
+        dioksitCircleView = findViewById(R.id.dioksitCircleView);
+        monoksitCircleView = findViewById(R.id.monoksitCircleView);
+        textViewHayvan1 = findViewById(R.id.koyun);
+        textViewHayvan2 = findViewById(R.id.leylek);
+        textViewHayvan3 = findViewById(R.id.bıldırcın);
+        textViewHayvan4 = findViewById(R.id.kopek);
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
@@ -42,37 +43,41 @@ public class MainActivity extends AppCompatActivity {
                 if (dataSnapshot.exists()) {
                     int sicaklik = dataSnapshot.child("sıcaklık").getValue(Integer.class);
                     int nem = dataSnapshot.child("nem").getValue(Integer.class);
-                    int oksijen = dataSnapshot.child("oksijen").getValue(Integer.class);
+                    int karbonmonoksit = dataSnapshot.child("karbonmonoksit").getValue(Integer.class);
+                    int karbondioksit = dataSnapshot.child("karbondioksit").getValue(Integer.class);
 
-                    temperatureCircleView.setSıcaklık(sicaklik);
+                    sıcaklıkCircleView.setSıcaklık(sicaklik);
                     nemCircleView.setNem(nem);
-                    oksijenCircleView.setOksijen(oksijen);
+                    monoksitCircleView.setMonoksit(karbonmonoksit);
+                    dioksitCircleView.setDioksit(karbondioksit);
+
                     // textViewSicaklik.setText("Sıcaklık: " + sicaklik);
                     // textViewNem.setText("Nem: " + nem);
                     // textViewOksijen.setText("Oksijen: " + oksijen);
 
-                    // Kedi ve Köpek için ideal aralık: 20°C - 25°C, Kuş için ideal aralık: 18°C - 26°C
-                    if ((sicaklik >= 20 && sicaklik <= 25) || (sicaklik >= 18 && sicaklik <= 26)) {
-                        textViewHayvan1.setText("Kedi: İdeal sıcaklık aralığındadır.");
-                        textViewHayvan2.setText("Köpek: İdeal sıcaklık aralığındadır.");
-                        textViewHayvan3.setText("Kuş: İdeal sıcaklık aralığındadır.");
-                    } else if ((sicaklik < 20 || sicaklik > 25) || (sicaklik < 18 || sicaklik > 26)) {
-                        textViewHayvan1.setText("Kedi: Sıcaklık dengesi bozulmuştur.");
-                        textViewHayvan2.setText("Köpek: Sıcaklık dengesi bozulmuştur.");
-                        textViewHayvan3.setText("Kuş: Sıcaklık dengesi bozulmuştur.");
-                    }
-                    // Kedi ve Köpek için ideal nem aralığı: %40 - %60, Kuş için ideal nem aralığı: %50 - %70
-                    if ((nem >= 40 && nem <= 60) || (nem >= 50 && nem <= 70)) {
-                        textViewHayvan1.append("\nKedi: İdeal nem aralığındadır.");
-                        textViewHayvan2.append("\nKöpek: İdeal nem aralığındadır.");
-                        textViewHayvan3.append("\nKuş: İdeal nem aralığındadır.");
-                    } else if ((nem < 40 || nem > 60) || (nem < 50 || nem > 70)) {
-                        textViewHayvan1.append("\nKedi: Nem dengesi bozulmuştur.");
-                        textViewHayvan2.append("\nKöpek: Nem dengesi bozulmuştur.");
-                        textViewHayvan3.append("\nKuş: Nem dengesi bozulmuştur.");
+                    if ((sicaklik >= 10 && sicaklik <= 20) && (nem >= 40 && nem <= 60) && (karbonmonoksit >= 0 && karbonmonoksit <= 50)) {
+                        textViewHayvan1.setText("Koyun: İdeal sıcaklık, nem ve hava kalitesi aralığındadır.");
+                    } else {
+                        textViewHayvan1.setText("Koyun: İdeal sıcaklık, nem ve hava kalitesi aralığında değildir.");
                     }
 
-                    // Oksijen değeri herhangi bir aralığa göre kontrol edilmiyor, sadece değeri textView'e yazdırılıyor
+                    if ((sicaklik >= 20 && sicaklik <= 25) && (nem >= 50 && nem <= 70) && (karbonmonoksit >= 0 && karbonmonoksit <= 50)) {
+                        textViewHayvan2.setText("Leylek: İdeal sıcaklık, nem ve hava kalitesi aralığındadır.");
+                    } else {
+                        textViewHayvan2.setText("Leylek: İdeal sıcaklık, nem ve hava kalitesi aralığında değildir.");
+                    }
+
+                    if ((sicaklik >= 15 && sicaklik <= 25) && (nem >= 40 && nem <= 60) && (karbonmonoksit >= 0 && karbonmonoksit <= 50)) {
+                        textViewHayvan3.setText("Bıldırcın: İdeal sıcaklık, nem ve hava kalitesi aralığındadır.");
+                    } else {
+                        textViewHayvan3.setText("Bıldırcın: İdeal sıcaklık, nem ve hava kalitesi aralığında değildir.");
+                    }
+
+                    if ((sicaklik >= 18 && sicaklik <= 25) && (nem >= 40 && nem <= 60) && (karbonmonoksit >= 0 && karbonmonoksit <= 50)) {
+                        textViewHayvan4.setText("Köpek: İdeal sıcaklık, nem ve hava kalitesi aralığındadır.");
+                    } else {
+                        textViewHayvan4.setText("Köpek: İdeal sıcaklık, nem ve hava kalitesi aralığında değildir.");
+                    }
                 }
             }
 

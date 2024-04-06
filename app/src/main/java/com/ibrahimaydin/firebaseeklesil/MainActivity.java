@@ -3,7 +3,10 @@ package com.ibrahimaydin.firebaseeklesil;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -20,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
     private NemCircleView nemCircleView;
     private DioksitCircleView dioksitCircleView;
     private MonoksitCircleView monoksitCircleView;
-
+public Button button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +37,15 @@ public class MainActivity extends AppCompatActivity {
         textViewHayvan2 = findViewById(R.id.leylek);
         textViewHayvan3 = findViewById(R.id.bıldırcın);
         textViewHayvan4 = findViewById(R.id.kopek);
+        button=findViewById(R.id.button);
 
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(MainActivity.this,API.class);
+                startActivity(intent);
+            }
+        });
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -87,6 +98,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
 }
 
 

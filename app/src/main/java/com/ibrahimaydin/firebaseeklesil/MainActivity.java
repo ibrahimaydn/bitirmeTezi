@@ -17,13 +17,13 @@ import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TextView  textViewHayvan1, textViewHayvan2, textViewHayvan3, textViewHayvan4;
+    private TextView textViewHayvan1, textViewHayvan2, textViewHayvan3, textViewHayvan4;
     private DatabaseReference databaseReference;
     private SıcaklıkCircleView sıcaklıkCircleView;
     private NemCircleView nemCircleView;
     private DioksitCircleView dioksitCircleView;
     private MonoksitCircleView monoksitCircleView;
-public Button button;
+    public Button button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,15 +37,16 @@ public Button button;
         textViewHayvan2 = findViewById(R.id.leylek);
         textViewHayvan3 = findViewById(R.id.bıldırcın);
         textViewHayvan4 = findViewById(R.id.kopek);
-        button=findViewById(R.id.button);
+        button = findViewById(R.id.button);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(MainActivity.this,API.class);
+                Intent intent = new Intent(MainActivity.this, API.class);
                 startActivity(intent);
             }
         });
+
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -62,43 +63,85 @@ public Button button;
                     monoksitCircleView.setMonoksit(karbonmonoksit);
                     dioksitCircleView.setDioksit(karbondioksit);
 
-                    // textViewSicaklik.setText("Sıcaklık: " + sicaklik);
-                    // textViewNem.setText("Nem: " + nem);
-                    // textViewOksijen.setText("Oksijen: " + oksijen);
-
-                    if ((sicaklik >= 10 && sicaklik <= 20) && (nem >= 40 && nem <= 60) && (karbonmonoksit >= 0 && karbonmonoksit <= 50)) {
-                        textViewHayvan1.setText("Koyun: İdeal sıcaklık, nem ve hava kalitesi aralığındadır.");
-                    } else {
-                        textViewHayvan1.setText("Koyun: İdeal sıcaklık, nem ve hava kalitesi aralığında değildir.");
-                    }
-
-                    if ((sicaklik >= 20 && sicaklik <= 25) && (nem >= 50 && nem <= 70) && (karbonmonoksit >= 0 && karbonmonoksit <= 50)) {
-                        textViewHayvan2.setText("Leylek: İdeal sıcaklık, nem ve hava kalitesi aralığındadır.");
-                    } else {
-                        textViewHayvan2.setText("Leylek: İdeal sıcaklık, nem ve hava kalitesi aralığında değildir.");
-                    }
-
-                    if ((sicaklik >= 15 && sicaklik <= 25) && (nem >= 40 && nem <= 60) && (karbonmonoksit >= 0 && karbonmonoksit <= 50)) {
-                        textViewHayvan3.setText("Bıldırcın: İdeal sıcaklık, nem ve hava kalitesi aralığındadır.");
-                    } else {
-                        textViewHayvan3.setText("Bıldırcın: İdeal sıcaklık, nem ve hava kalitesi aralığında değildir.");
-                    }
-
-                    if ((sicaklik >= 18 && sicaklik <= 25) && (nem >= 40 && nem <= 60) && (karbonmonoksit >= 0 && karbonmonoksit <= 50)) {
-                        textViewHayvan4.setText("Köpek: İdeal sıcaklık, nem ve hava kalitesi aralığındadır.");
-                    } else {
-                        textViewHayvan4.setText("Köpek: İdeal sıcaklık, nem ve hava kalitesi aralığında değildir.");
-                    }
+                    textViewHayvan1.setText(generateStatusMessage(
+                            "Koyun", sicaklik, nem, karbonmonoksit, karbondioksit,
+                            5, 25, 30, 70, 0, 300, 500,
+                            "Aşırı sıcaklık, yüksek nem, yetersiz oksijen ve yüksek karbonmonoksit seviyeleri koyunların sağlığını olumsuz etkileyebilir."
+                    ));
+                    textViewHayvan2.setText(generateStatusMessage(
+                            "Leylek", sicaklik, nem, karbonmonoksit, karbondioksit,
+                            15, 25, 40, 60, 0, 300, 500,
+                            "Yüksek sıcaklık, düşük nem ve hava kirliliği leyleklerin göç alışkanlıklarını ve beslenme düzenlerini olumsuz etkileyebilir."
+                    ));
+                    textViewHayvan3.setText(generateStatusMessage(
+                            "Bıldırcın", sicaklik, nem, karbonmonoksit, karbondioksit,
+                            18, 25, 40, 60, 0, 300, 500,
+                            "Yüksek sıcaklık, düşük nem ve hava kirliliği bıldırcınların sağlığını ve üreme alışkanlıklarını olumsuz etkileyebilir."
+                    ));
+                    textViewHayvan4.setText(generateStatusMessage(
+                            "Köpek", sicaklik, nem, karbonmonoksit, karbondioksit,
+                            20, 35, 40, 60, 0, 300, 500,
+                            "Yüksek sıcaklık, düşük nem ve hava kirliliği köpeklerin sağlığını olumsuz etkileyebilir."
+                    ));
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                // Hata durum işlemler
+                // Handle error
             }
         });
     }
 
+    private String generateStatusMessage(String animal, int sicaklik, int nem, int karbonmonoksit, int karbondioksit,
+                                         int tempMin, int tempMax, int humidityMin, int humidityMax, int coMax,
+                                         int co2Min, int co2Max, String disease) {
+        StringBuilder status = new StringBuilder(animal + ": ");
+        int nonIdealCount = 0;
+
+        if (sicaklik >= tempMin && sicaklik <= tempMax) {
+            status.append("Sıcaklık ideal. ");
+        } else if (sicaklik < tempMin) {
+            status.append("Sıcaklık düşük. ");
+            nonIdealCount++;
+        } else {
+            status.append("Sıcaklık yüksek. ");
+            nonIdealCount++;
+        }
+
+        if (nem >= humidityMin && nem <= humidityMax) {
+            status.append("Nem ideal. ");
+        } else if (nem < humidityMin) {
+            status.append("Nem düşük. ");
+            nonIdealCount++;
+        } else {
+            status.append("Nem yüksek. ");
+            nonIdealCount++;
+        }
+
+        if (karbonmonoksit == coMax) {
+            status.append("Karbonmonoksit ideal. ");
+        } else {
+            status.append("Karbonmonoksit yüksek. ");
+            nonIdealCount++;
+        }
+
+        if (karbondioksit >= co2Min && karbondioksit <= co2Max) {
+            status.append("Karbondioksit ideal. ");
+        } else if (karbondioksit < co2Min) {
+            status.append("Karbondioksit düşük. ");
+            nonIdealCount++;
+        } else {
+            status.append("Karbondioksit yüksek. ");
+            nonIdealCount++;
+        }
+
+        if (nonIdealCount >= 3) {
+            status.append("Uyarı: " + disease);
+        }
+
+        return status.toString();
+    }
 }
 
 

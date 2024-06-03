@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -5,90 +6,75 @@
     android:layout_height="match_parent"
     android:background="#93E0E5">
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
+    <EditText
+        android:id="@+id/sehirIsmi"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/havaDurumuButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/sehir">
-
-        <EditText
-            android:id="@+id/sehirIsmi"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="" />
-    </LinearLayout>
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:background="#FFFFFF"
+        android:hint="Şehir"
+        android:padding="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/havaDurumuButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/havaDurumuButton"
         android:layout_width="250dp"
         android:layout_height="70dp"
-        android:layout_below="@id/linearLayout"
-        android:layout_centerHorizontal="true"
-        android:nestedScrollingEnabled="true"
+        android:layout_marginTop="16dp"
         android:text="Öğren"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/sehirIsmi" />
 
     <TextView
         android:id="@+id/sehir"
-        android:text="                  "
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/havaDurumuButton"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="74dp"
+        android:layout_marginTop="16dp"
+        android:text="Elazığ"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="@+id/havaDurumuButton"
+        app:layout_constraintStart_toStartOf="@+id/havaDurumuButton"
+        app:layout_constraintTop_toBottomOf="@+id/havaDurumuButton" />
 
     <TextView
         android:id="@+id/ulke"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/sehir"
-        android:layout_alignStart="@id/sehir"
-        android:layout_alignLeft="@id/sehir"
-        android:layout_alignEnd="@id/sehir"
-        android:layout_alignRight="@id/sehir"
-        android:text="                              "
+        android:layout_marginTop="16dp"
+        android:text="TR"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="@+id/havaDurumuButton"
+        app:layout_constraintStart_toStartOf="@+id/havaDurumuButton"
+        app:layout_constraintTop_toBottomOf="@+id/sehir" />
 
     <TextView
         android:id="@+id/sicaklik"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/ulke"
-        android:layout_centerHorizontal="true"
-        android:text="                     "
+        android:layout_marginTop="16dp"
+        android:text="25℃"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/havaDurumuButton"
+        app:layout_constraintStart_toStartOf="@+id/havaDurumuButton"
         app:layout_constraintTop_toBottomOf="@+id/ulke" />
 
     <TextView
         android:id="@+id/koordinat"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:text="                         "
+        android:layout_marginTop="16dp"
+        android:text="39.2247, 40.8385"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/havaDurumuButton"
+        app:layout_constraintStart_toStartOf="@+id/havaDurumuButton"
         app:layout_constraintTop_toBottomOf="@+id/sicaklik" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

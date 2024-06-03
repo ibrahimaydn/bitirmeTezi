@@ -1,13 +1,11 @@
 package com.ibrahimaydin.firebaseeklesil;
 
-
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Button;
-import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -18,8 +16,10 @@ import org.json.JSONObject;
 public class API extends AppCompatActivity {
 
     TextView sehir, ulke, sicaklik, koordinat;
-    EditText sehirIsmi;
     Button havaDurumuButton;
+
+    // Varsayılan şehir
+    String defaultCity = "Elazig";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,17 +30,17 @@ public class API extends AppCompatActivity {
         sicaklik = findViewById(R.id.sicaklik);
         koordinat = findViewById(R.id.koordinat);
         havaDurumuButton = findViewById(R.id.havaDurumuButton);
-        sehirIsmi = findViewById(R.id.sehirIsmi);
 
         havaDurumuButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new HavaDurumu().execute();
+                Log.d("TAG", "Butona tıklandı"); // Buton tıklandığında log mesajı
+                new HavaDurumu().execute(defaultCity);
             }
         });
     }
 
-    private class HavaDurumu extends AsyncTask<Void, Void, Void> {
+    private class HavaDurumu extends AsyncTask<String, Void, Void> {
         int tempNo;
         String descriptionN;
         String countryName;
@@ -48,23 +48,22 @@ public class API extends AppCompatActivity {
         Double enlem, boylam;
 
         @Override
-        protected Void doInBackground(Void... voids) {
-            String weatherUrl = "//api.openweathermap.org/data/2.5/find?q=" + sehirIsmi.getText() + "&units=metric";
+        protected Void doInBackground(String... params) {
+            String city = params[0];
+            String weatherUrl = "http://api.openweathermap.org/data/2.5/find?q=" + city + "&units=metric&appid=YOUR_API_KEY";
             JSONObject jsonObject = null;
-            try {                String json = JSONParser.getJSONFromUrl(weatherUrl);
+            try {
+                Log.d("TAG", "Arka planda çalışıyor");
+                String json = JSONParser.getJSONFromUrl(weatherUrl);
                 try {
                     jsonObject = new JSONObject(json);
                 } catch (JSONException e) {
                     Log.e("JSONPARSER", "Error creating Json Object" + e.toString());
                 }
 
-                // En baştaki json objesinden list adlı array'ı çek
                 JSONArray listArray = jsonObject.getJSONArray("list");
-                // list'in ilk objesini çek
                 JSONObject firstObj = listArray.getJSONObject(0);
-                // Bu alanda Name'i çek
                 name = firstObj.getString("name");
-                // İlk objenin içindeki objelerden main'i çek
                 JSONObject main = firstObj.getJSONObject("main");
 
                 // Sıcaklık
@@ -86,6 +85,7 @@ public class API extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Void args) {
+            Log.d("TAG", "PostExecute çağrıldı");
             sehir.setText("Sehir: " + name);
             ulke.setText("Ülke: " + countryName);
             sicaklik.setText("Sıcaklık: " + tempNo + "℃");

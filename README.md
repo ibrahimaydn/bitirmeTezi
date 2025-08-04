@@ -1,1 +1,1 @@
-# bitirmeTexi
+# bitirmeTezi

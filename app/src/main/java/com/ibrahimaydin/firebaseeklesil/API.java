@@ -58,7 +58,7 @@ public class API extends AppCompatActivity {
                 try {
                     jsonObject = new JSONObject(json);
                 } catch (JSONException e) {
-                    Log.e("JSONPARSER", "Error creating Json Object" + e.toString());
+                    Log.e("JSONPARSER", "Error creating Json objesi" + e.toString());
                 }
 
                 JSONArray listArray = jsonObject.getJSONArray("list");
@@ -85,7 +85,7 @@ public class API extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Void args) {
-            Log.d("TAG", "PostExecute çağrıldı");
+            Log.d("TAG", "hata ayıklama çağrıldı");
             sehir.setText("Sehir: " + name);
             ulke.setText("Ülke: " + countryName);
             sicaklik.setText("Sıcaklık: " + tempNo + "℃");
